@@ -167,13 +167,13 @@ int is_commit_msg_ok(const char* msg) {
  *           generate id by starting at 0 in ternary and incrementing by 1
  *           for each commit
 */
-void next_commit_id(char* commit_id) {
+void next_commit_id_hw1(char* commit_id) {
   // initialize commit id to 'c..c' if not found
   if (*commit_id != '6' && *commit_id != '1' && *commit_id != 'c') 
-    for (int i = 0; i < COMMIT_ID_SIZE - 1; i++)
+    for (int i = 0; i < COMMIT_ID_HASH_BYTES - 1; i++)
       *(commit_id + i) = 'c';
   else {
-    int LSB = COMMIT_ID_SIZE - 2;
+    int LSB = COMMIT_ID_HASH_BYTES - 2;
     // Step 1: convert fake ternary -> decimal
     int i, j;
     unsigned int dec_id = 0; // this number can get big; keep positive
@@ -221,7 +221,7 @@ void next_commit_id(char* commit_id) {
   }
 }
 
-int beargit_commit(const char* msg) {
+int beargit_commit_hw1(const char* msg) {
   if (!is_commit_msg_ok(msg)) {
     fprintf(stderr, "ERROR: Message must contain \"%s\"\n", go_bears);
     return 1;
